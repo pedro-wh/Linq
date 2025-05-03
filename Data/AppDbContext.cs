@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace todosapp.Data;
+namespace linq.Data;
 
 public class AppDbContext : DbContext
 {

@@ -8,7 +8,7 @@
       "name": "C#: Launch Startup Project",
       "type": "dotnet",
       "request": "launch",
-      "projectPath": "${workspaceFolder}/todosapp.csproj",
+      "projectPath": "${workspaceFolder}/linq.csproj",
     }
   ]
 }

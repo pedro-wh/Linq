@@ -1,4 +1,4 @@
-namespace todosapp.Data;
+namespace linq.Data;
 
 public class AppDbSeeder
 {

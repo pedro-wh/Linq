@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using todosapp.Data;
+using linq.Data;
 
 #nullable disable
 
-namespace todosapp.Migrations
+namespace linq.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace todosapp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("todosapp.Data.SubTodo", b =>
+            modelBuilder.Entity("linq.Data.SubTodo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace todosapp.Migrations
                     b.ToTable("SubTodos");
                 });
 
-            modelBuilder.Entity("todosapp.Data.Todo", b =>
+            modelBuilder.Entity("linq.Data.Todo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,16 +67,16 @@ namespace todosapp.Migrations
                     b.ToTable("Todos");
                 });
 
-            modelBuilder.Entity("todosapp.Data.SubTodo", b =>
+            modelBuilder.Entity("linq.Data.SubTodo", b =>
                 {
-                    b.HasOne("todosapp.Data.Todo", "Todo")
+                    b.HasOne("linq.Data.Todo", "Todo")
                         .WithMany("SubTodos")
                         .HasForeignKey("IdTodo");
 
                     b.Navigation("Todo");
                 });
 
-            modelBuilder.Entity("todosapp.Data.Todo", b =>
+            modelBuilder.Entity("linq.Data.Todo", b =>
                 {
                     b.Navigation("SubTodos");
                 });
