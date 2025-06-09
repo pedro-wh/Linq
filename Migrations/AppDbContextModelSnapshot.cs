@@ -30,12 +30,16 @@ namespace linq.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Colores")
+                    b.Property<int>("Color")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Etiqueta");
+                    b.ToTable("Etiquetas");
                 });
 
             modelBuilder.Entity("Linq.Data.EtiquetaTodo", b =>
@@ -58,7 +62,7 @@ namespace linq.Migrations
 
                     b.HasIndex("IdTodo");
 
-                    b.ToTable("EtiquetaTodo");
+                    b.ToTable("EtiquetasTodos");
                 });
 
             modelBuilder.Entity("linq.Data.SubTodo", b =>

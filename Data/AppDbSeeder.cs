@@ -1,18 +1,38 @@
+using Linq.Data;
+
 namespace linq.Data;
 
 public class AppDbSeeder
 {
   public static async Task SeedAsync(AppDbContext _context)
   {
+
     if (!_context.Todos.Any())
     {
+      var etiqueta1 = new Etiqueta
+      {
+        Name = "Hogar",
+        Color = Enums.Colores.VERDE
+      };
+      var etiqueta2 = new Etiqueta
+      {
+        Name = "Pendientes",
+        Color = Enums.Colores.AMARILLO
+      };
+
       var todo1 = new Todo
       {
-        Name = "Ir al Gym"
+        Name = "Ir al Gym",
+        EtiquetaTodos = [
+          new() {Etiqueta = etiqueta1}
+        ]
       };
       var todo2 = new Todo
       {
-        Name = "Comprar leche"
+        Name = "Comprar leche",
+        EtiquetaTodos = [
+          new() {Etiqueta = etiqueta2}
+        ]
       };
       var todo3 = new Todo
       {
@@ -25,6 +45,10 @@ public class AppDbSeeder
           new() {Name = "Pagar parcialidad 1", Completed=true},
           new() {Name = "Pagar parcialidad 2"},
           new() {Name = "Pagar parcialidad 3"},
+        ],
+        EtiquetaTodos = [
+          new() {Etiqueta = etiqueta1},
+          new() {Etiqueta = etiqueta2}
         ]
       };
       var todo5 = new Todo
