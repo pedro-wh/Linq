@@ -14,6 +14,6 @@ public class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
       options.LogTo(message => Debug.WriteLine(message), LogLevel.Information);
-      options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=mydb;Username=postgres");
+      options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=linq;Username=postgres");
     }
 }

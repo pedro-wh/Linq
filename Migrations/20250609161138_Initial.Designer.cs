@@ -12,7 +12,7 @@ using linq.Data;
 namespace linq.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250503175241_Initial")]
+    [Migration("20250609161138_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,6 +24,45 @@ namespace linq.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Linq.Data.Etiqueta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Colores")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Etiqueta");
+                });
+
+            modelBuilder.Entity("Linq.Data.EtiquetaTodo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdEtiqueta")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdTodo")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEtiqueta");
+
+                    b.HasIndex("IdTodo");
+
+                    b.ToTable("EtiquetaTodo");
+                });
 
             modelBuilder.Entity("linq.Data.SubTodo", b =>
                 {
@@ -70,6 +109,25 @@ namespace linq.Migrations
                     b.ToTable("Todos");
                 });
 
+            modelBuilder.Entity("Linq.Data.EtiquetaTodo", b =>
+                {
+                    b.HasOne("Linq.Data.Etiqueta", "Etiqueta")
+                        .WithMany("EtiquetaTodos")
+                        .HasForeignKey("IdEtiqueta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("linq.Data.Todo", "Todo")
+                        .WithMany("EtiquetaTodos")
+                        .HasForeignKey("IdTodo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Etiqueta");
+
+                    b.Navigation("Todo");
+                });
+
             modelBuilder.Entity("linq.Data.SubTodo", b =>
                 {
                     b.HasOne("linq.Data.Todo", "Todo")
@@ -79,8 +137,15 @@ namespace linq.Migrations
                     b.Navigation("Todo");
                 });
 
+            modelBuilder.Entity("Linq.Data.Etiqueta", b =>
+                {
+                    b.Navigation("EtiquetaTodos");
+                });
+
             modelBuilder.Entity("linq.Data.Todo", b =>
                 {
+                    b.Navigation("EtiquetaTodos");
+
                     b.Navigation("SubTodos");
                 });
 #pragma warning restore 612, 618

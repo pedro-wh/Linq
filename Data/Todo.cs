@@ -1,8 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Linq.Data;
 
 namespace linq.Data;
 
+/// <summary>
+/// Esto es una relación 1:N
+/// </summary>
 public class Todo
 {
   [Key]
@@ -10,4 +13,6 @@ public class Todo
   public string Name { get; set; } = "";
   public bool Completed { get; set; }
   public virtual List<SubTodo>? SubTodos { get; set; }
+
+  public virtual List<EtiquetaTodo>? EtiquetaTodos { get; set; }
 }

@@ -12,6 +12,19 @@ namespace linq.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Etiqueta",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Colores = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Etiqueta", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Todos",
                 columns: table => new
                 {
@@ -23,6 +36,32 @@ namespace linq.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Todos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EtiquetaTodo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdTodo = table.Column<int>(type: "integer", nullable: false),
+                    IdEtiqueta = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EtiquetaTodo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EtiquetaTodo_Etiqueta_IdEtiqueta",
+                        column: x => x.IdEtiqueta,
+                        principalTable: "Etiqueta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EtiquetaTodo_Todos_IdTodo",
+                        column: x => x.IdTodo,
+                        principalTable: "Todos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,6 +85,16 @@ namespace linq.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_EtiquetaTodo_IdEtiqueta",
+                table: "EtiquetaTodo",
+                column: "IdEtiqueta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EtiquetaTodo_IdTodo",
+                table: "EtiquetaTodo",
+                column: "IdTodo");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SubTodos_IdTodo",
                 table: "SubTodos",
                 column: "IdTodo");
@@ -55,7 +104,13 @@ namespace linq.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "EtiquetaTodo");
+
+            migrationBuilder.DropTable(
                 name: "SubTodos");
+
+            migrationBuilder.DropTable(
+                name: "Etiqueta");
 
             migrationBuilder.DropTable(
                 name: "Todos");
